@@ -4,7 +4,7 @@
     state: installed
 
 - name: Copy roboshop config file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: roboshop config
     dest: /etc/nginx/default.d/roboshop.conf
 
