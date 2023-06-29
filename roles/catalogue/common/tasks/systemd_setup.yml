@@ -1,0 +1,22 @@
+func_print_head "setup systemd service"
+cp ${script_path}/${component}.service /etc/systemd/system/${component}.service &>>$log_file
+func_stat_check $?
+
+func_print_head "start ${component} service"
+systemctl daemon-reload
+systemctl enable ${component}
+systemctl restart ${component}
+func_stat_check
+
+- name: setup systemD service file
+  ansible.builtin.teplate:
+    src: "{{component}}.service"
+    dest: /etc/systemd/system/${component}.service
+
+
+- name: start {{component}} service
+  ansible.builtin.systemd:
+    name: "{{component}}"
+    state: restarted
+    enabled: true
+    daemon_reload: true
