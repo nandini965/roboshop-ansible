@@ -8,7 +8,7 @@
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-- name: clean old content
+- name: clean old app content
   ansible.builtin.file:
    path: /usr/share/nginx/html
    state: absent
