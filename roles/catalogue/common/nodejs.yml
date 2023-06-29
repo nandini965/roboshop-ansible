@@ -1,0 +1,21 @@
+
+ - name: configuring nodejs
+   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+
+ - name: install nodejs
+   ansible.builtin.file:
+     name: nodejs
+     state: installed
+
+ - name: include app_prerequisites
+   ansible.builtin.import_tasks:
+     file: app_prereq.yml
+
+ - name: install nodejs dependencies
+   ansible.builtin.shell: npm install
+   args:
+     chdir: /app
+
+ - name: include schema setup
+   ansible.builtin.import_tasks:
+     file: schema_setup.yml
