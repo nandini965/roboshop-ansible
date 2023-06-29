@@ -8,29 +8,6 @@
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-- name: cleanup old content
-  ansible.builtin.file:
-    path: /usr/share/nginx/nginx/html
-    state: absent
-
-- name: Create app directory
-  ansible.builtin.file:
-    path: /usr/share/nginx/nginx/html
-    state: directory
-
-
-- name: download app content
-  ansible.builtin.unarchive:
-    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
-    dest: /usr/share/nginx/nginx/html
-    remote_src: yes
-
-- name: start nginx
-  ansible.builtin.systemd:
-    state: restarted
-    name: nginx
-    enabled: true
-
 
 
 
