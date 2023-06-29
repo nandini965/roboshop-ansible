@@ -18,6 +18,17 @@
      path: /usr/share/nginx/html
      state: directory
 
+- name: download app content
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes
+
+- name: install Nginx
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+    enabled: true
 
 
 
