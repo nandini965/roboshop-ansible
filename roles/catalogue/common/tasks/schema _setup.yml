@@ -1,6 +1,6 @@
 
 - name: load mongodb schema
-  when: shcema_setup == "mongo"
+  when: schema_setup == "mongo"
   block:
 - name: copy mongodb repo file
   ansible.builtin.copy:
