@@ -5,18 +5,18 @@
 
 - name: Copy roboshop config file
   ansible.builtin.template:
-    src: roboshop.conf
-    dest: /etc/nginx/default.d/roboshop.conf
+   src: roboshop.conf
+   dest: /etc/nginx/default.d/roboshop.conf
 
 - name: clean old app content
   ansible.builtin.file:
-   path: /usr/share/nginx/html
-   state: absent
+    path: /usr/share/nginx/html
+    state: absent
 
-   name: Create app directory
-   ansible.builtin.file:
-     path: /usr/share/nginx/html
-     state: directory
+- name: Create app directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
 
 - name: download app content
   ansible.builtin.unarchive:
@@ -26,9 +26,13 @@
 
 - name: install Nginx
   ansible.builtin.systemd:
-    state: restarted
-    name: nginx
-    enabled: true
+   state: restarted
+   name: nginx
+   enabled: true
+
+
+
+
 
 
 
