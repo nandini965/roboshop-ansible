@@ -1,6 +1,6 @@
 
 - name: setup systemD service file
-  ansible.builtin.teplate:
+  ansible.builtin.template:
     src: "{{component}}.service"
     dest: /etc/systemd/system/${component}.service
 
