@@ -9,7 +9,7 @@
 
 - name: include app_prerequisites
   ansible.builtin.import_tasks:
-    file: app_pre req.yml
+    file: app_prereq.yml
 
 - name: install nodejs dependencies
   ansible.builtin.shell: npm install
