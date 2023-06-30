@@ -16,10 +16,3 @@
   args:
     chdir: /app
 
-- name: include schema setup
-  ansible.builtin.import_tasks:
-    file: schema_setup.yml
-
-- name: include systemD
-  ansible.builtin.import_tasks:
-    file: systemd_setup.yml
