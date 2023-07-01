@@ -1,7 +1,7 @@
-- name: load mongodb schema
+- name: Load MongoDB Schema
   when: schema_setup == "mongo"
   block:
-    - name: copy mongodb repo file
+    - name: Copy MongoDB repo file
       ansible.builtin.copy:
        src: mongo.repo
        dest: /etc/yum.repos.d/mongo.repo
@@ -11,5 +11,5 @@
        name: mongodb-org-shell
        state: installed
 
-    - name: load schema
+    - name: Load Schema
       ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.catalogue.mongo_endpoint', region='us-east-1' ) }} </app/schema/{{component}}.js
