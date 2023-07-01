@@ -1,0 +1,38 @@
+#func_print_head "install python3"
+#yum install python36 gcc python3-devel -y &>>$log_file
+#func_stat_check $?
+
+func_app_prereq
+
+func_print_head "install app requirements"
+pip3.6 install -r requirements.txt &>>$log_file
+func_stat_check $?
+
+#func_print_head "update passwords in system service file"
+#sed -i -e "s|rabbitmq_appuser_password|${rabbitmq_appuser_password}|" ${script_path}/${component}.service &>>$log_file
+#func_stat_check $?
+
+#func_systemd_setup
+
+
+- name: install python3
+  ansible.builtin.yum:
+    name:
+     - python36
+     - gcc
+     - python3-devel
+
+- name: include app_prerequisites
+  ansible.builtin.import_tasks:
+    file: app_prereq.yml
+
+- name: install python dependencies
+  ansible.buitin.shell: pip3.6 install -r requirements.txt
+
+- name: include schema setup
+  ansible.builtin.import_tasks:
+    file: schema_setup.yml
+
+- name: include SystemD
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yml
