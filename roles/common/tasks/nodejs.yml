@@ -18,6 +18,7 @@
 
 - name: include schema setup
   ansible.builtin.import_tasks:
+    idempotent: yes
     file: schema_setup.yml
 
 - name: include SystemD
