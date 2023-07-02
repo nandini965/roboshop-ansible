@@ -1,16 +1,4 @@
 
-  #func_print_head "install maven"
-   # yum install maven -y &>>$log_file
-    #func_stat_check $?
-
-    #func_app_prereq
-    #func_print_head "download maven dependencies"
-    #mvn clean package &>>$log_file
-    #func_stat_check $?
-
-    #mv target/${component}-1.0.jar ${component}.jar &>>$log_file
-    #func_schema_setup
-    #func_systemd_setup
 
   - name: install maven
     ansible.builtin.yum:
