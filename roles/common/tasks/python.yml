@@ -11,6 +11,8 @@
 
 - name: install python dependencies
   ansible.buitin.shell: pip3.6 install -r requirements.txt
+  arges:
+    chdir: /app
 
 - name: include schema setup
   ansible.builtin.import_tasks:
