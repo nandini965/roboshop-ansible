@@ -1,9 +1,9 @@
 - name: Load MongoDB Schema
   when: schema_setup == "mongo"
   block:
-    - name: Copy MongoDB yum repo file
+    - name: Copy MongoDB  repo file
       ansible.builtin.copy:
-       src: mongodb.repo
+       src: mongo.repo
        dest: /etc/yum.repos.d/mongo.repo
 
     - name: install mongodb client
