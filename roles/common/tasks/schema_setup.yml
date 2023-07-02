@@ -16,13 +16,3 @@
       ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', "{{env}}.docdb.DOCDB_URL", region='us-east-1' ) }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username {{ lookup('aws_ssm', "{{env}}.docdb.DB_ADMIN_USER", region='us-east-1' ) }} --password {{ lookup('aws_ssm', "{{env}}.docdb.DB_ADMIN_PASS", region='us-east-1' ) }} < /app/schema/{{component}}.js
 
 
-
-
-- name: Load MYSQL Schema
-  when: schema_setup == "mysql"
-  block:
-     - name: install MYSQL client
-       ansible.builtin.yum:
-         name: mysql
-
-     - name: Load Schema
