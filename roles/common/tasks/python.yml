@@ -15,7 +15,7 @@ func_stat_check $?
 #func_systemd_setup
 
 
-- name: install python3
+- name: install python
   ansible.builtin.yum:
     name:
      - python36
