@@ -15,7 +15,7 @@
      chdir: /app
 
 
-  - name: include schema setup
+  - name: include  mysql schema setup
     ansible.builtin.import_tasks:
       file: schema_setup.yml
 
