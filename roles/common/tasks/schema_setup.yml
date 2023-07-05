@@ -13,6 +13,15 @@
 
 
     - name: Load Schema
-      ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', "{{env}}.docdb.DOCDB_URL", region='us-east-1' ) }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username {{ lookup('aws_ssm', "{{env}}.docdb.DB_ADMIN_USER", region='us-east-1' ) }} --password {{ lookup('aws_ssm', "{{env}}.docdb.DB_ADMIN_PASS", region='us-east-1' ) }} < /app/schema/{{component}}.js
+      ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.catalogue.mongo_endpoint',region'us-east-1 ) }} </app/schema/{{component}}.js
 
 
+- name: load mysql schema
+  when: schema_setup == "mysql"
+  block:
+      - name: install mysq; client
+        ansible.builtin.yum:
+           name: mysql
+
+      - name: load schema
+        ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'dev.shipping.db_host', region='us-east-1', ) } -u{{ lookup('aws_ssm', 'dev.shipping.db_user' region='us-east-1', ) }} -p{{ lookup('aws_ssm', 'dev.shipping.db_pass', region='us-east-1', ) }} < /app/schema/{{component}}.sql
