@@ -2,9 +2,5 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: nodejs
-- name: import common defaults
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: defaults
 
 
