@@ -1,3 +1,2 @@
 app_user: roboshop
 schema_setup: mongo
-schema_setup: mysql
