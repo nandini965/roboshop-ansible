@@ -1,10 +1,10 @@
 
   filebeat.inputs:
 -  type: filestream
-   id: my-filestream-id
+   id: {{ component }}
    enabled: true
    paths:
-    - { { log_file } }
+    - {{ log_file }}
 
    filebeat.config.modules:
      path: ${path.config}/modules.d/*.yml
