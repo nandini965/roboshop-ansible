@@ -3,7 +3,8 @@
     src: logstash.conf
     dest: /etc/logstash/conf.d/logstash.conf
 
-
+]
+-
 - name: restart logstash config
   ansible.builtin.systemd:
     name: logstash
