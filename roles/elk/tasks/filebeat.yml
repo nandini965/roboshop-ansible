@@ -19,3 +19,4 @@
     name: filebeat
     state: restarted
     enabled: yes
+
