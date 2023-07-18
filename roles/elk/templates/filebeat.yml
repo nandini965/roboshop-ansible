@@ -3,8 +3,8 @@
    id: {{ component }}
    enabled: true
    paths:
-    - {{ log_file }}
-    - fields:
+       - {{ log_file }}
+   fields:
         component: {{ component }}
 
    output.logstash:
