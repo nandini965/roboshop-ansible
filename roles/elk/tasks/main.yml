@@ -1,4 +1,4 @@
 - name: Run Logstash
   when: elk
   ansible.builtin.import_tasks:
-    file: main.yml
+    file: logstash.yml
