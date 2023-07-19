@@ -1,11 +1,4 @@
-- name: copy logstash config
-  ansible.builtin.template:
-    src: logstash.conf
-    dest: /etc/logstash/conf.d/logstash.conf
-
-
-- name: restart logstash config
-  ansible.builtin.systemd:
-    name: logstash
-    state: restarted
-    enabled: yes
+- name: Run Logstash
+  when: elk
+  ansible.builtin.import_tasks:
+    file: main.yml
