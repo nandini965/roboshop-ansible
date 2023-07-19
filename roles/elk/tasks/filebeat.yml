@@ -20,3 +20,7 @@
     state: restarted
     enabled: yes
 
+- name: Run Logstash
+  when: elk
+  ansible.builtin.import_tasks:
+    file: main.yml
