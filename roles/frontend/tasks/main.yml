@@ -35,10 +35,7 @@
     name: elk
     tasks_from: filebeat
 
-- name: Run Logstash
-  when: elk
-  ansible.builtin.import_tasks:
-    file: main.yml
-
-
-
+- name: run logstash
+  ansible.builtin.import_role:
+    name: elk
+    tasks_from: main.yml
