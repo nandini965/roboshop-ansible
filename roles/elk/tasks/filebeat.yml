@@ -20,7 +20,7 @@
     state: restarted
     enabled: yes
 
-- name: include main.yml
+- name: run logstash
   ansible.builtin.import_tasks:
   file: main.yml
 
