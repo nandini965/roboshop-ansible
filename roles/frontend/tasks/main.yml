@@ -35,6 +35,10 @@
     name: elk
     tasks_from: filebeat
 
+- name: Run Logstash
+  when: elk
+  ansible.builtin.import_tasks:
+    file: logstash.yml
 
 
 
