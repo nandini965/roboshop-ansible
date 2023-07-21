@@ -1,4 +1,3 @@
-
 - name: import common Nodejs
   ansible.builtin.import_role:
     name: common
