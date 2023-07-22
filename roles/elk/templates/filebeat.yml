@@ -8,6 +8,8 @@ filebeat.inputs:
 
     output.logstash:
       hosts: [ "172.31.94.200:5044" ]
+      fields:
+        component: {{ component }}
 
   ##defaults
 filebeat.config.modules:
