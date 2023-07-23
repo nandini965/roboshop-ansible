@@ -34,3 +34,8 @@
   ansible.builtin.import_role:
     name: elk
     tasks_from: filebeat
+
+- name: copy nginx config file
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
