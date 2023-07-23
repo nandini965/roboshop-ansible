@@ -23,7 +23,10 @@
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
     remote_src: yes
-
+- name: copy nginx config file
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
 - name: restart Nginx
   ansible.builtin.systemd:
    state: restarted
@@ -34,8 +37,3 @@
   ansible.builtin.import_role:
     name: elk
     tasks_from: filebeat
-
-- name: copy nginx config file
-  ansible.builtin.template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
