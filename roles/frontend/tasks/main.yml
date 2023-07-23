@@ -5,8 +5,14 @@
 
 - name: Copy roboshop config file
   ansible.builtin.template:
-   src: roboshop.conf
-   dest: /etc/nginx/default.d/roboshop.conf
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: copy nginx config file
+  ansible.builtin.template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
 
 - name: clean old app content
   ansible.builtin.file:
@@ -23,10 +29,7 @@
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
     remote_src: yes
-- name: copy nginx config file
-  ansible.builtin.template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
+
 - name: restart Nginx
   ansible.builtin.systemd:
    state: restarted
