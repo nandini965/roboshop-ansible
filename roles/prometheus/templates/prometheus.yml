@@ -27,3 +27,7 @@ scrape_configs:
   - job_name: "node-exporter"
     static_configs:
       - targets: ["172.31.21.214:9090"]
+      - job_name: 'ec2-node'
+        ec2_sd_configs:
+         - region: us-east-1
+           port: 9100
