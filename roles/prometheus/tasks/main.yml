@@ -2,7 +2,7 @@
   ansible.builtin.template:
     src: "{{item}}.yml"
     dest: /opt/prometheus/{{item}}.yml
-    loop:
+  loop:
       - prometheus
       - alerts
 
