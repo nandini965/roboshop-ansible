@@ -1,7 +1,10 @@
 - name: copy prometheus configuration
   ansible.builtin.template:
-    src: prometheus.yml
-    dest: /opt/prometheus/prometheus.yml
+    src: "{{item}}.yml"
+    dest: /opt/prometheus/{{item}}.yml
+    loop:
+      - prometheus
+      - alerts
 
 - name: restart prometheus
   ansible.builtin.systemd:
@@ -18,3 +21,4 @@
   #  port: 9090
    # delay: 10
     #timeout: 15m
+
