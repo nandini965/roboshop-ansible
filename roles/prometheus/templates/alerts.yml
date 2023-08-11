@@ -18,14 +18,14 @@ groups:
           summary: High Memory Usage
 
 
-       - alert: ServerDown
-         expr: up < 1
-         for: 1m
+      - alert: ServerDown
+        expr: up < 1
+        for: 1m
         labels:
           severity: page
-         annotations:
+        annotations:
            summary: server Down
-      {% for component in components %}
+             {% for component in components %}
 
 
       - alert: ServiceDown
@@ -35,4 +35,4 @@ groups:
           severity: page
         annotations:
           summary: {{ component.name }} component - service down
-     {%- endfor %}
+                 {%- endfor %}
