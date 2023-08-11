@@ -25,4 +25,4 @@ groups:
           severity: page
         annotations:
           summary: {{ component.name }} component - service down
-           {%- endfor %}
+       {%- endfor %}
