@@ -2,6 +2,7 @@ labels:
   - { tag: Name, label: name }
   - { tag: env, label: env }
   - { tag: component, label: component }
+
 components:
   - { name: cart, service_name: cart }
   - { name: catalogue, service_name: catalogue }
