@@ -25,6 +25,7 @@ groups:
           severity: page
         annotations:
            summary: server Down
+                      
              {% for component in components %}
 
 
