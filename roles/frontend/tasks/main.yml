@@ -24,16 +24,11 @@
     path: /usr/share/nginx/html
     state: directory
 
-#- name: download app content
-#  ansible.builtin.unarchive:
-#    src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
-#    dest: /usr/share/nginx/html
-#    remote_src: yes
-- name: Download App Content
+- name: download app content
   ansible.builtin.unarchive:
-     src: http://172.31.82.149:8081/repository/{{component}}/{{component}}-{{ lookup('aws_ssm', '{{ env }}.{{component}}.app_version', region='us-east-1' ) }}.zip
-     dest: /usr/share/nginx/htm
-     remote_src: yes
+   src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+   dest: /usr/share/nginx/html
+   remote_src: yes
 
 - name: restart Nginx
   ansible.builtin.systemd:
