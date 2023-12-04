@@ -11,9 +11,15 @@
         name: mongodb-org-shell
         state: installed
 
+- name: download docdb pem file
+  ansible.builtin.get_url:
+    url: wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+    dest : /app/rds-combined-ca-bundle.pem
 
-    - name: Load Schema
-      ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.{{ component }}.mongo_endpoint', region='us-east-1' ) }} </app/schema/{{component}}.js
+- name: Load Schema
+  ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', '{{ env }}.docdb.db_endpoint', region='us-east-1' ) }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username {{ lookup('aws_ssm', '{{ env }}.docdb.db_user', region='us-east-1' ) }} --password {{ lookup('aws_ssm', '{{ env }}.docdb.db_pass', region='us-east-1' ) }} </app/schema/{{comp
+   # - name: Load Schema
+     # ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.{{ component }}.mongo_endpoint', region='us-east-1' ) }} </app/schema/{{component}}.js
 
 
 - name: load mysql schema
@@ -23,5 +29,9 @@
         ansible.builtin.yum:
            name: mysql
 
+
+
       - name: load schema
         ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'dev.{{ component }}.db_host', region='us-east-1' ) }}  -u{{ lookup('aws_ssm', 'dev.shipping.db_user', region='us-east-1' ) }} -p{{ lookup('aws_ssm', 'dev.shipping.db_pass', region='us-east-1' ) }} < /app/schema/{{component}}.sql
+
+-
