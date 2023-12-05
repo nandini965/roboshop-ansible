@@ -13,7 +13,7 @@
 
 - name: download docdb pem file
   ansible.builtin.get_url:
-    url: wget https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem
+    url: https://truststore.pki.rds.amazonaws.com/us-east-1/us-east-1-bundle.pem
     dest : /app/rds-combined-ca-bundle.pem
 
 - name: Load Schema
