@@ -1,37 +1,35 @@
 - name: Load MongoDB Schema
   when: schema_setup == "mongo"
   block:
-    - name: Copy Mongo repo file
+    - name: Copy MongoDB repo file
       ansible.builtin.copy:
-       src: mongo.repo
-       dest: /etc/yum.repos.d/mongo.repo
+        src: mongo.repo
+        dest: /etc/yum.repos.d/mongo.repo
 
-    - name: install mongodb client
+    - name: Install MongoDB client
       ansible.builtin.yum:
         name: mongodb-org-shell
         state: installed
 
-- name: download docdb pem file
-  ansible.builtin.get_url:
-    url: https://truststore.pki.rds.amazonaws.com/us-east-1/us-east-1-bundle.pem
-    dest : /app/rds-combined-ca-bundle.pem
+    - name: Download DocDB PEM File
+      ansible.builtin.get_url:
+        url: https://truststore.pki.rds.amazonaws.com/us-east-1/us-east-1-bundle.pem
+        dest: /app/rds-combined-ca-bundle.pem
 
-- name: Load Schema
-  ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', '{{ env }}.docdb.db_endpoint', region='us-east-1' ) }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username {{ lookup('aws_ssm', '{{ env }}.docdb.db_user', region='us-east-1' ) }} --password {{ lookup('aws_ssm', '{{ env }}.docdb.db_pass', region='us-east-1' ) }} </app/schema/{{component}}.js
+    - name: Load Schema
+      ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', '{{ env }}.docdb.db_endpoint', region='us-east-1' ) }}:27017 --sslCAFile /app/rds-combined-ca-bundle.pem --username {{ lookup('aws_ssm', '{{ env }}.docdb.db_user', region='us-east-1' ) }} --password {{ lookup('aws_ssm', '{{ env }}.docdb.db_pass', region='us-east-1' ) }} </app/schema/{{component}}.js
 
-     # ansible.builtin.shell: mongo --host {{ lookup('aws_ssm', 'dev.{{ component }}.mongo_endpoint', region='us-east-1' ) }} </app/schema/{{component}}.js
-
-
-- name: load mysql schema
+- name: Load MySQL Schema
   when: schema_setup == "mysql"
   block:
-      - name: install mysql client
-        ansible.builtin.yum:
-           name: mysql
+    - name: Install MySQL Client
+      ansible.builtin.yum:
+        name: mysql
 
+    - name: Check Schema
+      ansible.builtin.shell: echo 'show databases' | mysql -h {{ lookup('aws_ssm', '{{ env }}.rds.db_host', region='us-east-1' ) }}  -u{{ lookup('aws_ssm', '{{ env }}.rds.db_user', region='us-east-1' ) }} -p{{ lookup('aws_ssm', '{{ env }}.rds.db_pass', region='us-east-1' ) }} | grep cities
+      ignore_errors: yes
+      register: out
 
-
-      - name: load schema
-        ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'dev.{{ component }}.db_host', region='us-east-1' ) }}  -u{{ lookup('aws_ssm', 'dev.shipping.db_user', region='us-east-1' ) }} -p{{ lookup('aws_ssm', 'dev.shipping.db_pass', region='us-east-1' ) }} < /app/schema/{{rds}}.sql
-
--
+    - name: Load Schema
+      ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', '{{ env }}.rds.db_host', region='us-east-1' ) }}  -u{{ lookup('aws_ssm', '{{ env }}.rds.db_user', region='us-east-1' ) }} -p{{ lookup('aws_ssm', '{{ env }}.rds.db_pass', region='us-east-1' ) }} < /app/schema/{{component}}.sql
