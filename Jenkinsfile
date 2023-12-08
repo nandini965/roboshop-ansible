@@ -4,10 +4,10 @@ pipeline {
     label 'workstation'
    }
   }
- }
+
   parameters {
-    choice(name: 'env', choices('dev','prod') description: 'pickup environment' )
-    string(name: 'component' default_name: '' description: 'pickup component_name' )
+    choice(name: 'env', choices('dev','prod') description: 'pick environment' )
+    string(name: 'component' default_name: '' description:  'component_name' )
  }
 
    options {
@@ -15,11 +15,13 @@ pipeline {
    }
 
    stage 'ANSIBLE' {
-   step {
-   sh 'ansible-pull -i loaclhost, -U roboshop.yml -e username=centos -e password=DevOps321 -e env=${env} -e role_name=${component_name}
+   steps {
+   sh 'ansible-playbook -i ${component}.${env}.rdevopsb72.store, roboshop.yml -e ansible_user=centos -e ansible_password=DevOps321 -e env=${env} -e role_name=${component_name}'
    }
    }
    post {
    always {
    clear ws()
    }
+   }
+}
