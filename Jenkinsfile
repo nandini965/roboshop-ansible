@@ -14,12 +14,6 @@ pipeline {
 
   stages {
 
-    stage('Update Parameter Store') {
-      steps {
-        sh 'aws ssm put-parameter --name "${dev}.${component}.app_version" --type "String" --value "${app_version}" --overwrite'
-      }
-    }
-
     stage('Ansible') {
       steps {
        // sh 'aws ec2 describe-instances --filters Name=tag:Name,Values=${component}-${env} Name=instance-state-name,Values=running --query \'Reservations[*].Instances[*].PrivateIpAddress\' --output text >/tmp/inv'
@@ -27,7 +21,7 @@ pipeline {
       }
     }
 
-  }
+
 
   post {
     always {
