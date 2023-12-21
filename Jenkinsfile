@@ -16,7 +16,7 @@ pipeline {
 
     stage('Update Parameter Store') {
       steps {
-        sh 'aws ssm put-parameter --name "dev.${component}.app_version" --type "String" --value "${app_version}" --overwrite'
+        sh 'aws ssm put-parameter --name "${dev}.${component}.app_version" --type "String" --value "${app_version}" --overwrite'
       }
     }
 
