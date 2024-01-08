@@ -1,16 +1,16 @@
-- name: copy prometheus configuration
-  ansible.builtin.template:
-    src: "{{item}}.yml"
-    dest: /opt/prometheus/{{item}}.yml
-  loop:
-      - prometheus
-      - alerts
-
-- name: restart prometheus
-  ansible.builtin.systemd:
-    name: prometheus
-    state: restarted
-    enabled: yes
+#- name: copy prometheus configuration
+#  ansible.builtin.template:
+#    src: "{{item}}.yml"
+#    dest: /opt/prometheus/{{item}}.yml
+#  loop:
+#      - prometheus
+#      - alerts
+#
+#- name: restart prometheus
+#  ansible.builtin.systemd:
+#    name: prometheus
+#    state: restarted
+#    enabled: yes
 
 #- name: check if prometheus is running or not
 #  ansible.builtin.shell: sleep 10 ; netstat -lntp | grep 9090
