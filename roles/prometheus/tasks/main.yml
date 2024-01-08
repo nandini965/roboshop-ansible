@@ -6,6 +6,12 @@
 #      - prometheus
 #      - alerts
 
+
+- name: Debug labels variable
+  debug:
+    var: labels
+
+
 - name: restart prometheus
   ansible.builtin.systemd:
     name: prometheus
