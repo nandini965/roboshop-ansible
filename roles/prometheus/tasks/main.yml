@@ -1,6 +1,3 @@
-- name: Debug labels variable
-  debug:
-    var: labels
 
 - name: copy prometheus configuration
   ansible.builtin.template:
