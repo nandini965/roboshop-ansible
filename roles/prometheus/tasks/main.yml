@@ -1,3 +1,7 @@
+- name: Debug labels variable
+  debug:
+    var: labels
+
 - name: copy prometheus configuration
   ansible.builtin.template:
     src: prometheus.yml
@@ -5,12 +9,6 @@
 #  loop:
 #      - prometheus
 #      - alerts
-
-
-- name: Debug labels variable
-  debug:
-    var: labels
-
 
 - name: restart prometheus
   ansible.builtin.systemd:
