@@ -16,5 +16,5 @@
 - name: download application content
   ansible.builtin.unarchive:
     src: http://172.31.33.0:8081/repository/{{component}}/{{component}}-{{ lookup('aws_ssm', '{{ env }}.{{component}}.app_version', region='us-east-1' ) }}.zip
-    dest: /app
+    dest: /user/share/nginx/html
     remote_src: yes
